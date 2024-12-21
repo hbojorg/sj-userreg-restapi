@@ -1,4 +1,4 @@
-package com.smartjob.userreg.infrastructure.config;
+package com.smartjob.userreg.infrastructure.security;
 
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
@@ -13,14 +13,23 @@ import java.io.IOException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 public class JWTAuthorizationFilter implements Filter {
 
     public static final String BEARER_PREFIX = "Bearer ";
 
+    public static final String UNAUTHORIZED_MESSAGE = "{\"message\": \"The token is invalid. Make sure you have entered a valid token in the Authorization header (Bearer Authorization)\"}";
+
     private ServletContext servletContext;
 
+    /**
+     * Filters incoming HTTP requests to validate the JWT token in the Authorization header.
+     * This method intercepts the request and checks if the Authorization header contains a
+     * valid JWT token. If the token is valid, it allows the request to proceed by calling FilterChain
+     * If the token is invalid or absent, it responds with a 401 Unauthorized status and a JSON message indicating the failure.
+     */
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws ServletException, IOException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
@@ -38,9 +47,8 @@ public class JWTAuthorizationFilter implements Filter {
             }
         }
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write("{\"message\": \"Invalid token\"}");
+        response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
+        response.getWriter().write(UNAUTHORIZED_MESSAGE);
     }
 
     @Override

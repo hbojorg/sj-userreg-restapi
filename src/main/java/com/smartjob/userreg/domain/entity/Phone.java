@@ -1,4 +1,4 @@
-package com.smartjob.userreg.domain;
+package com.smartjob.userreg.domain.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

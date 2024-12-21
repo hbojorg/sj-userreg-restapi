@@ -1,6 +1,7 @@
-package com.smartjob.userreg.interfaces;
+package com.smartjob.userreg.presentation.restcontroller.token;
 
-import com.smartjob.userreg.infrastructure.config.JWTProvider;
+import com.smartjob.userreg.infrastructure.security.JWTProvider;
+import com.smartjob.userreg.domain.valueobject.TokenAPI;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
@@ -12,11 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/auth/token")
 @Tag(name = "Token", description = "API to generate JWT token")
-public class TokenAPIController {
+public class TokenGenerationRestController {
 
     private final JWTProvider jwtProvider;
 
-    public TokenAPIController(JWTProvider jwtProvider) {
+    public TokenGenerationRestController(JWTProvider jwtProvider) {
         this.jwtProvider = jwtProvider;
     }
 
