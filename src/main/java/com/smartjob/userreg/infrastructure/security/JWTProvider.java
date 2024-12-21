@@ -1,4 +1,4 @@
-package com.smartjob.userreg.infrastructure.config;
+package com.smartjob.userreg.infrastructure.security;
 
 
 import io.jsonwebtoken.JwtBuilder;
@@ -19,6 +19,11 @@ public class JWTProvider {
 
     public static final String TOKEN_PARAM = "TOKEN_SJ";
 
+    /**
+     * Verifies if the provided token is a valid JWT token. .
+     * @param token jwt token
+     * @return Returns true if it is a valid token, otherwise false
+     */
     public boolean validateToken(final String token) {
         try {
             Jwts.parser().verifyWith(getSecretKey()).build().parseSignedClaims(token);
@@ -29,6 +34,10 @@ public class JWTProvider {
         return false;
     }
 
+    /**
+     * Generates a JWT token
+     * @return JWT token generated
+     */
     public String generateToken() {
          JwtBuilder jwtBuilder = Jwts
                 .builder()
@@ -37,6 +46,10 @@ public class JWTProvider {
          return jwtBuilder.compact();
     }
 
+    /**
+     * Generates a SecretKey instance based on the specified secret key
+     * @return SecretKey
+     */
     private SecretKey getSecretKey() {
         byte[] keyBytes = Decoders.BASE64.decode(secret);
         return Keys.hmacShaKeyFor(keyBytes);

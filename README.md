@@ -9,6 +9,7 @@ Esta RESTful API App está implementada o incluye:
 - **JWT para 'Bearer Authorization'**
 - **Bean Validation**
 - **PUSH, PUT, GET, DELETE (methods)**
+- **Estructura de proyecto o paqueteria basado en Domain-Driven Design (DDD)**
 
 ### Ejecutar API APP
 

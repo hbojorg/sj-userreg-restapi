@@ -1,4 +1,4 @@
-package com.smartjob.userreg.domain;
+package com.smartjob.userreg.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;

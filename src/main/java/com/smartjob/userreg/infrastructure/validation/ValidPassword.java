@@ -1,4 +1,4 @@
-package com.smartjob.userreg.infrastructure;
+package com.smartjob.userreg.infrastructure.validation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -11,10 +11,10 @@ import java.lang.annotation.Target;
 @Documented
 @Target({ ElementType.FIELD, ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = PasswordValidator.class)
+@Constraint(validatedBy = PasswordRegexValidator.class)
 public @interface ValidPassword {
 
-    String message() default "The password is invalid";
+    String message() default "The password is invalid. Ensure that it includes: at least 1 lowercase letter, at least 1 uppercase letter, at least 1 number, and at least 1 special character. The password must be at least 7 characters long and contain no spaces";
 
     Class<?>[] groups() default {};
 

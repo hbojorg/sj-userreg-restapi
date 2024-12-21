@@ -1,4 +1,4 @@
-package com.smartjob.userreg.infrastructure.config;
+package com.smartjob.userreg.shared.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -10,6 +10,15 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class OpenAPIConfig {
 
+    /**
+     * Configures and registers a custom OpenAPI specification for API documentation.
+     * This method sets up an OpenAPI instance with security configuration for bearer token
+     * authorization. It defines the "Bearer Authorization" security scheme, which uses
+     * JWT tokens for authentication. The security scheme is applied globally to the API
+     * by adding it to the OpenAPI components and security requirements.
+     *
+     * @return a configured OpenAPI object with security settings for JWT bearer tokens.
+     */
     @Bean
     public OpenAPI customOpenAPI() {
         final String securitySchemeName = "Bearer Authorization";
