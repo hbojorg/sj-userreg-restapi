@@ -9,6 +9,7 @@ Esta RESTful API App está implementada o incluye:
 - **JWT para 'Bearer Authorization'**
 - **Bean Validation**
 - **PUSH, PUT, GET, DELETE (methods)**
+- **Estructura de proyecto o paqueteria basado en Domain-Driven Design (DDD)**
 
 ### Ejecutar API APP
 
@@ -32,6 +33,10 @@ Posicionándose al interior de la carpeta principal del proyecto, ejecutar desde
     - mvn install
     - mvn spring-boot:run
 
+Para ejecutar solamente los unit tests se puede ejecutar cualquiera de los siguientes comandos de Maven:
+
+    - mvn test
+    - mvn -Dtest=UserManagementControllerTest test
 
 #### 5. Iniciar a probar y usar los APIS implementados
 Para este propósito se agregó OpenAPI [Swagger-ui] y para usarlo ingresar desde un navegador a la siguiente URL:
@@ -52,11 +57,12 @@ O también se ha agregado un endpoint [GET /auth/token] para generar un token y 
 Los campos **email** y **password** son validados dinámicamente por un custom validator a través de sus respectivos regexp
 esos regexp son leídos desde el properties, eso hace flexible la modificación de tales regex
 
-Regex Email: todo email address debe tener un top-level domain **cl** o **CL**
-Regex Password: como mínimo debe tener 7 caracteres en total, acepta cualquier caracter, excepto espacios
+- Regex Email: todo email address debe tener un top-level domain **cl** o **CL**
+- Regex Password: como mínimo debe tener 7 caracteres en total, al menos 1 letra minúscula, al menos 1 letra mayúscula, al menos 1 número y al menos 1 carácter especial (excepto espacios).
+
 
     validation.regex.email = ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[cC][lL]$
-    validation.regex.password = ^[^\\s]{7,}$
+    validation.regex.password = ^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[\\W_])[^\\s]{7,}$
 
 
 #### 6. Consultar los registros insertados desde la console H2
