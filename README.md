@@ -37,6 +37,7 @@ Para ejecutar solamente los unit tests se puede ejecutar cualquiera de los sigui
 
     - mvn test
     - mvn -Dtest=UserManagementControllerTest test
+    - mvn -Dtest=UserManagementServiceTest test
 
 #### 5. Iniciar a probar y usar los APIS implementados
 Para este propósito se agregó OpenAPI [Swagger-ui] y para usarlo ingresar desde un navegador a la siguiente URL:
@@ -62,6 +63,7 @@ esos regexp son leídos desde el properties, eso hace flexible la modificación 
 
 
     validation.regex.email = ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[cC][lL]$
+    
     validation.regex.password = ^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[\\W_])[^\\s]{7,}$
 
 

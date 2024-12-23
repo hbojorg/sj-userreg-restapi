@@ -17,6 +17,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class UserManagementService {
 
+    public static final String EMAIL_ALREADY_REGISTERED_MESSAGE = "The provided email is already registered or belongs to another user, please enter another email";
+
+    public static final String USER_NOT_FOUND_MESSAGE = "The user uuid you provided is invalid or does not exist, please enter a valid one";
+
+    public static final String DELETE_USER_NOT_FOUND_MESSAGE = "The uuid of the user you wish to delete is invalid or does not exist, please enter a valid one";
+
     private final UserRepository userRepository;
 
     private final UserPhoneManagementService userPhoneManagementService;
@@ -52,7 +58,7 @@ public class UserManagementService {
     @Transactional
     public UserSJ createUser(UserRegistration userRegistration, String token) {
         if (userRepository.existsUserSJByEmail(userRegistration.email())) {
-            throw new InvalidParameterException("The provided email is already registered or belongs to another user, please enter another email.");
+            throw new InvalidParameterException(EMAIL_ALREADY_REGISTERED_MESSAGE);
         }
         UserSJ user = new UserSJ();
         user.setName(userRegistration.name());
@@ -78,11 +84,11 @@ public class UserManagementService {
     public UserSJ updateUser(String uuid, UserRegistration newUserInfo, String token) {
         Optional<UserSJ> userOptional = userRepository.findByUuid(uuid);
         if (userOptional.isEmpty()) {
-            throw new UserNotFoundException("The user uuid you provided is invalid or does not exist, please enter a valid one");
+            throw new UserNotFoundException(USER_NOT_FOUND_MESSAGE);
         }
         UserSJ user = userOptional.get();
         if (!user.getEmail().equalsIgnoreCase(newUserInfo.email()) && userRepository.existsUserSJByEmail(newUserInfo.email())) {
-            throw new InvalidParameterException("The provided email is already registered or belongs to another user, please enter another email.");
+            throw new InvalidParameterException(EMAIL_ALREADY_REGISTERED_MESSAGE);
         }
         user.setName(newUserInfo.name());
         user.setEmail(newUserInfo.email());
@@ -103,7 +109,7 @@ public class UserManagementService {
     public void deleteUser(String uuid) {
         Optional<UserSJ> userOptional = userRepository.findByUuid(uuid);
         if (userOptional.isEmpty()) {
-            throw new UserNotFoundException("The uuis of the user you wish to delete is invalid or does not exist, please enter a valid one");
+            throw new UserNotFoundException(DELETE_USER_NOT_FOUND_MESSAGE);
         }
         userRepository.delete(userOptional.get());
     }
